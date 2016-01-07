@@ -1,14 +1,12 @@
 FROM debian:jessie
 
-MAINTAINER NGINX Docker Maintainers "docker-maint@nginx.com"
+MAINTAINER Andrew Kimpton "awk@onshape.com"
 
-RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
-RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
-
-ENV NGINX_VERSION 1.9.9-1~jessie
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 00A6F0A3C300EE8C
+RUN echo "deb [arch=amd64] http://ppa.launchpad.net/nginx/stable/ubuntu/ trusty main" >> /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get install -y ca-certificates nginx=${NGINX_VERSION} && \
+    apt-get install -y ca-certificates nginx-full && \
     rm -rf /var/lib/apt/lists/*
 
 # forward request and error logs to docker log collector
